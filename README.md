@@ -32,7 +32,7 @@ gulp.task('default', function() {
 
 ### Options
 
-#### `question`
+#### question
 Type: String or Function
 
 The String that is specified or returned by specified Function is shown to user on screen.  
@@ -75,7 +75,7 @@ gulp.task('default', function() {
 });
 ```
 
-#### `continue`
+#### continue
 Type: Boolean or Function
 
 If `false` is specified or specified Function returns falsy (e.g. `null`, `undefined`, `''`, `false` etc.), this tasks flow is aborted immediately. And the remaining tasks will be not done. Otherwise the tasks flow is to be continued.
