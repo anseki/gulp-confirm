@@ -1,6 +1,6 @@
 {
   "name": "gulp-confirm",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "title": "gulp-confirm",
   "description": "Abort or continue the tasks flow according to an answer to the question, the tasks pause and wait it.",
   "keywords": [
