@@ -1,6 +1,6 @@
 {
   "name": "gulp-confirm",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "title": "gulp-confirm",
   "description": "Abort or continue the tasks flow according to an answer to the question, the tasks pause and wait it.",
   "keywords": [
@@ -19,7 +19,7 @@
   "dependencies": {
     "gulp-util": "^3.0.0",
     "through2": "^0.6.1",
-    "readline-sync": "~0.5.5"
+    "readline-sync": "~0.6.0"
   },
   "homepage": "https://github.com/anseki/gulp-confirm",
   "repository": {
