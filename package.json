@@ -1,8 +1,8 @@
 {
   "name": "gulp-confirm",
-  "version": "0.1.10",
+  "version": "1.0.0",
   "title": "gulp-confirm",
-  "description": "Abort or continue the tasks flow according to an answer to the question, the tasks pause and wait it.",
+  "description": "Abort or continue the flow of tasks according to an answer (with or without Enter key) to the specified question. the flow of tasks pauses and waits for it. You can specify the way to decide to abort or continue.",
   "keywords": [
     "gulpplugin",
     "confirm",
@@ -19,7 +19,7 @@
   "dependencies": {
     "gulp-util": "^3.0.0",
     "through2": "^0.6.1",
-    "readline-sync": "~0.8.0"
+    "readline-sync": "~1.2.14"
   },
   "homepage": "https://github.com/anseki/gulp-confirm",
   "repository": {

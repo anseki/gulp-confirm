@@ -1,3 +1,11 @@
+/*
+ * gulp-confirm
+ * https://github.com/anseki/gulp-confirm
+ *
+ * Copyright (c) 2015 anseki
+ * Licensed under the MIT license.
+ */
+
 'use strict';
 
 var gutil = require('gulp-util'),
@@ -16,8 +24,7 @@ function callHandler(handler, argsArray) {
 }
 
 function hl(text) {
-  text = '' + text;
-  return RE_CTRL_CHAR.test(text) ? text : HL_IN + text + HL_OUT;
+  return !(text += '') || RE_CTRL_CHAR.test(text) ? text : HL_IN + text + HL_OUT;
 }
 
 function Confirm(options) {
@@ -27,38 +34,62 @@ function Confirm(options) {
 }
 
 Confirm.prototype.transform = function(file, encoding, callback) {
-  var question, answer, res;
-  if (typeof this.continue !== 'boolean') {
-    if (typeof this.options.question === 'function') {
-      res = callHandler(this.options.question);
+  var options = this.options, query, matches,
+    res, rlsMethod, rlsOptions = {history: false};
+
+  if (typeof this.proceed !== 'boolean') {
+
+    if (typeof options.question === 'function') {
+      res = callHandler(options.question);
       if (res.err) {
         console.error('"question" failed.');
         return callback(new gutil.PluginError('gulp-confirm', res.err));
       }
-      question = res.val;
-    } else {
-      question = this.options.question;
-    }
-
-    if (question) {
-      process.stdin.pause();
-      answer = readlineSync.question(hl(question + ' :'));
-      // process.stdin.resume();
-      if (typeof this.options.continue === 'function') {
-        res = callHandler(this.options.continue, [answer]);
-        if (res.err) {
-          console.error('"continue" failed.');
-          return callback(new gutil.PluginError('gulp-confirm', res.err));
-        }
-        this.continue = !!res.val;
-      } else {
-        this.continue = !!this.options.continue;
+      if (!res.val) {
+        this.proceed = true;
+        callback(null, file); // Do nothing.
+        return;
       }
-      if (!this.continue) { gutil.log(hl('Tasks are aborted.')); }
+      query = res.val;
+    } else {
+      query = options.question ?
+        options.question + ' :' : options.question; // accept ''
     }
-  }
 
-  callback(null, this.continue ? file : null);
+    if ((matches = /^\s*_key(?:\:(.+))?\s*$/i.exec(options.input + ''))) {
+      rlsMethod = 'keyIn';
+      if (matches[1]) { rlsOptions.trueValue = matches[1]; }
+      else if (typeof options.proceed !== 'function' &&
+        typeof options.proceed !== 'boolean') { rlsMethod = 'keyInPause'; }
+    } else {
+      rlsMethod = 'question';
+      if (options.input) { rlsOptions.trueValue = (options.input + '').split(','); }
+    }
+
+    if (process.platform === 'win32' && process.stdin.isTTY) {
+      // init force
+      try {
+        require('fs').writeSync(process.stdin.fd, ''); // not stdout
+      } catch (e) {}
+    }
+    res = readlineSync[rlsMethod](query && process.platform !== 'win32' ?
+      hl(query) : query, rlsOptions); // accept undefined
+    if (rlsOptions.trueValue) {
+      this.proceed = res === true;
+    } else if (typeof options.proceed === 'function') {
+      res = callHandler(options.proceed, [res]);
+      if (res.err) {
+        console.error('"proceed" failed.');
+        return callback(new gutil.PluginError('gulp-confirm', res.err));
+      }
+      this.proceed = !!res.val;
+    } else {
+      this.proceed = typeof options.proceed === 'boolean' ? options.proceed : true;
+    }
+    if (!this.proceed) { gutil.log(hl('Tasks are aborted.')); }
+
+  }
+  callback(null, this.proceed ? file : null);
 };
 
 module.exports = function(options) { return (new Confirm(options)).stream; };
