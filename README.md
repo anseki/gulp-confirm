@@ -1,6 +1,6 @@
 # gulp-confirm
 
-Abort or continue the flow of tasks according to an answer (with or without Enter key) to the specified question. the flow of tasks pauses and waits for it. You can specify the way to decide to abort or continue.
+Abort or continue the flow of tasks according to an answer (with or without Enter key) to the specified question. The flow of tasks is paused, until the user responds and the next behavior is found by specified options.
 
 ![sample](cl_01.png)
 
