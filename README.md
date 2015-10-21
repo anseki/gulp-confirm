@@ -83,7 +83,7 @@ Accept the user's input that is specified type.
 * If `'_key'` is specified, get a pressed **key** (without an Enter key), and let the [`proceed`](#proceed) option decide whether to continue the flow of tasks.
 * If a string `'_key:charlist'` is specified, get a pressed **key** (without an Enter key), and continue the flow of tasks when the pressed key was found in that `charlist`, otherwise abort it. The `charlist` is a string that includes characters as the keys. For example, if `'_key:abc'` is specified, continue the flow of tasks when the `A`, `B` or `C` key is pressed.
 
-The string comparisons is case-insensitive (i.e. `a` equals `A`).
+The string comparisons are case-insensitive (i.e. `a` equals `A`).
 
 #### `proceed`
 
