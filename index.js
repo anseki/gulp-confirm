@@ -2,7 +2,7 @@
  * gulp-confirm
  * https://github.com/anseki/gulp-confirm
  *
- * Copyright (c) 2016 anseki
+ * Copyright (c) 2017 anseki
  * Licensed under the MIT license.
  */
 
