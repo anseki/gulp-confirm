@@ -1,5 +1,7 @@
 # gulp-confirm
 
+[![npm](https://img.shields.io/npm/v/gulp-confirm.svg)](https://www.npmjs.com/package/gulp-confirm) [![GitHub issues](https://img.shields.io/github/issues/anseki/gulp-confirm.svg)](https://github.com/anseki/gulp-confirm/issues) [![David](https://img.shields.io/david/anseki/gulp-confirm.svg)](package.json) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE-MIT)
+
 Abort or continue the flow of tasks according to an answer (with or without Enter key) to the specified question. The flow of tasks is paused, until the user responds and the next behavior is found by specified options.
 
 ![sample](cl_01.png)
