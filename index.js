@@ -8,7 +8,8 @@
 
 'use strict';
 
-var gutil = require('gulp-util'),
+var PluginError = require('plugin-error'),
+  log = require('fancy-log'),
   through = require('through2'),
   readlineSync = require('readline-sync'),
   RE_CTRL_CHAR = /\x1B\[\d+m/,
@@ -43,7 +44,7 @@ Confirm.prototype.transform = function(file, encoding, callback) {
       res = callHandler(options.question);
       if (res.err) {
         console.error('"question" failed.');
-        return callback(new gutil.PluginError('gulp-confirm', res.err));
+        return callback(new PluginError('gulp-confirm', res.err));
       }
       if (!res.val) {
         this.proceed = true;
@@ -80,13 +81,13 @@ Confirm.prototype.transform = function(file, encoding, callback) {
       res = callHandler(options.proceed, [res]);
       if (res.err) {
         console.error('"proceed" failed.');
-        return callback(new gutil.PluginError('gulp-confirm', res.err));
+        return callback(new PluginError('gulp-confirm', res.err));
       }
       this.proceed = !!res.val;
     } else {
       this.proceed = typeof options.proceed === 'boolean' ? options.proceed : true;
     }
-    if (!this.proceed) { gutil.log(hl('Tasks are aborted.')); }
+    if (!this.proceed) { log(hl('Tasks are aborted.')); }
 
   }
   callback(null, this.proceed ? file : null);
