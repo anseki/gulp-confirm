@@ -1,6 +1,6 @@
 {
   "name": "gulp-confirm",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "title": "gulp-confirm",
   "description": "Abort or continue the flow of tasks according to an answer (with or without Enter key) to the specified question. The flow of tasks is paused, until the user responds and the next behavior is found by specified options.",
   "keywords": [
